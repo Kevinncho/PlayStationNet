@@ -17,5 +17,5 @@ public class Role {
     @Id
     private Long idRole; // Sin AutoIncrement si vas a definir roles fijos (1=USER, 2=ADMIN)
 
-    private String roleName;
+    private String roleName;// ROLE_USER, ROLE_ADMIN
 }
