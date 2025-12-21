@@ -6,7 +6,7 @@
     <app-navbar (toggleSidebar)="showSidebar = !showSidebar"  (cerrarSesion)="logout()"></app-navbar>
 
     <div class="main-layout">
-      <!-- <app-sidebar [show]="showSidebar" (seleccion)="changeApp($event)"></app-sidebar> -->
+      <app-sidebar [show]="showSidebar" (seleccion)="changeApp($event)"></app-sidebar>
 
       @switch (selectedApp) {
         @case ('home') {

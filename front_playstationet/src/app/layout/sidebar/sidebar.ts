@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,4 +8,13 @@ import { Component, Input } from '@angular/core';
 })
 export class Sidebar {
   @Input() show: boolean = false;
+
+  @Output() selection = new EventEmitter<string>();
+
+
+
+
+  select(app: string) {
+    this.selection.emit(app);
+  }
 }
