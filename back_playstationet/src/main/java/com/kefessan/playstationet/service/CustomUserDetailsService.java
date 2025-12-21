@@ -1,4 +1,4 @@
-package com.kefessan.playstationet.security;
+package com.kefessan.playstationet.service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
