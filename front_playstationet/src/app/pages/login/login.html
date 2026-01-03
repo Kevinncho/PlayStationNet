@@ -1,1 +1,54 @@
-<p>login works!</p>
+<div class="login-container">
+  <p-card header="Game Store Login" class="login-card">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" novalidate>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          pInputText
+          [(ngModel)]="email"
+          required
+          email
+          #emailCtrl="ngModel"
+        />
+
+        <small class="error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+          Please enter a valid email
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          pPassword
+          [(ngModel)]="password"
+          required
+          minlength="4"
+          #passwordCtrl="ngModel"
+          [feedback]="false"
+        />
+
+        <small class="error" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+          Password is required (min 4 characters)
+        </small>
+      </div>
+
+      <p-button
+        type="submit"
+        label="Sign in"
+        icon="pi pi-sign-in"
+        [loading]="loading"
+        [disabled]="loginForm.invalid">
+      </p-button>
+
+    </form>
+  </p-card>
+
+  <p-toast></p-toast>
+</div>

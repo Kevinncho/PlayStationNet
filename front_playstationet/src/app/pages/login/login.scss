@@ -1,0 +1,62 @@
+$primary: #1B3C53;
+$secondary: #234C6A;
+$accent: #456882;
+$light: #E3E3E3;
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, $light);
+}
+
+.login-card {
+  width: 380px;
+  background: $primary;
+  ::ng-deep .p-card {
+    background-color: $secondary;
+    color: $light;
+    border-radius: 12px;
+  }
+
+  ::ng-deep .p-card-title {
+    color: $light;
+    text-align: center;
+  }
+}
+
+.field {
+  margin-bottom: 1rem;
+
+  label {
+    color: $light;
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 500;
+  }
+
+  input {
+    width: 100%;
+    background-color: $accent;
+  }
+}
+
+/* Button customization */
+::ng-deep .p-button {
+  color: $primary;
+  background-color: $light;
+  border: none;
+  width: 100%;
+}
+
+::ng-deep .p-button:hover {
+  background-color: lighten($light, 8%);
+}
+
+.error {
+  color: #fca5a5;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
