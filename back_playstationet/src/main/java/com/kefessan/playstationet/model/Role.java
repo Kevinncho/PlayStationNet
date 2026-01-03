@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Role {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole; // Sin AutoIncrement si vas a definir roles fijos (1=USER, 2=ADMIN)
 
     private String roleName;// ROLE_USER, ROLE_ADMIN
