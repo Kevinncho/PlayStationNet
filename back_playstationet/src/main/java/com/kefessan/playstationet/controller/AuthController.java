@@ -51,19 +51,18 @@ public class AuthController {
         return new LoginResponse(token);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<LoginResponse> register(@RequestBody RegisterRequest request) {
-        userService.register(request);
+@PostMapping("/register")
+public ResponseEntity<LoginResponse> register(@RequestBody RegisterRequest request) {
 
-        authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword())
-        );
+    System.out.println("➡️ Registro request: " + request.getUsername() + ", " + request.getEmail());
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = jwtUtil.generateToken(userDetails);
+    // 1️⃣ Validar y crear usuario
+    userService.register(request); // Aquí puede lanzar tus excepciones
 
-        return ResponseEntity.ok(new LoginResponse(token));
-    }
+    // 2️⃣ Generar token sin autenticar manualmente
+    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+    String token = jwtUtil.generateToken(userDetails);
+
+    return ResponseEntity.ok(new LoginResponse(token));
+}
 }
