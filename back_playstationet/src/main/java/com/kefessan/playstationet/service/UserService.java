@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kefessan.playstationet.dto.RegisterRequest;
 import com.kefessan.playstationet.enumeration.ERole;
+import com.kefessan.playstationet.exception.EmailAlreadyExistsException;
+import com.kefessan.playstationet.exception.UserAlreadyExistsException;
 import com.kefessan.playstationet.model.Role;
 import com.kefessan.playstationet.model.User;
 import com.kefessan.playstationet.repository.RoleRepository;
@@ -25,8 +27,16 @@ public class UserService {
 
     public void register(RegisterRequest request) {
         
-        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new RuntimeException("El nombre de usuario ya existe");
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new UserAlreadyExistsException(
+                "Error: El nombre de usuario '" + request.getUsername() + "' ya existe"
+            );
+        }
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new EmailAlreadyExistsException(
+                "Error: El correo '" + request.getEmail() + "' ya está registrado"
+            );
         }
 
         User user = new User();
