@@ -20,30 +20,30 @@ export class GeneralService {
   // * Apis methods
 
   // GET
-  getApi<T>(endpoint: string): Observable<T> {
+  getApi<Api>(endpoint: string): Observable<Api> {
     return this.http
-      .get<T>(`${this.apiUrl}/${endpoint}`)
+      .get<Api>(`${this.apiUrl}/${endpoint}`)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
   // POST
-  postApi<T>(endpoint: string, body: any): Observable<T> {
+  postApi<Api>(endpoint: string, body: any): Observable<Api> {
     return this.http
-      .post<T>(`${this.apiUrl}/${endpoint}`, body)
+      .post<Api>(`${this.apiUrl}/${endpoint}`, body)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
   // PUT
-  putApi<T>(endpoint: string, body: any): Observable<T> {
+  putApi<Api>(endpoint: string, body: any): Observable<Api> {
     return this.http
-      .put<T>(`${this.apiUrl}/${endpoint}`, body)
+      .put<Api>(`${this.apiUrl}/${endpoint}`, body)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
   // DELETE (opcional)
-  deleteApi<T>(endpoint: string): Observable<T> {
+  deleteApi<Api>(endpoint: string): Observable<Api> {
     return this.http
-      .delete<T>(`${this.apiUrl}/${endpoint}`)
+      .delete<Api>(`${this.apiUrl}/${endpoint}`)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
