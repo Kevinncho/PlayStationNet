@@ -1,0 +1,19 @@
+.home-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  background-color: #1B3C53;
+}
+
+.home-header ::ng-deep .p-button {
+  margin-left: 0.5rem;
+  background-color: #234C6A;
+  color: #E3E3E3;
+}
+
+.home-content {
+  padding: 2rem;
+  text-align: center;
+  background-color: #E3E3E3;
+  min-height: 80vh; // para que siempre se vea un fondo
+}

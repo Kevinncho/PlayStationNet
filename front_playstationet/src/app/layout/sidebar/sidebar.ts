@@ -9,7 +9,7 @@ export interface MenuItemProfile extends MenuItem {
   selector: 'app-sidebar',
   imports: [],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.scss',
+  styleUrls: ['./sidebar.scss'],
 })
 export class Sidebar implements OnInit {
   @Input() show: boolean = false;

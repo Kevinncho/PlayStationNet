@@ -1,24 +1,36 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-import { Api } from '../general/general.service';
-// import { User } from '../models/user.model';
-
-export interface User {
-  name: string;
-  password: string;
-}
+import { Injectable } from "@angular/core";
+import { Observable, of, throwError } from "rxjs";
+import { delay, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class UserService {
-  private readonly endpoint = 'users';
+export class AuthService {
 
-  constructor(private readonly http: HttpClient) {}
+  login(email: string, password: string): Observable<any> {
 
-  createUser(user: User): Observable<Api<User>> {
-    return this.http.post<Api<User>>(`${this.apiUrl}/${this.endpoint}`, user);
+    //Simulación backend
+    if (email === 'admin@gamestore.com' && password === '1234') {
+      return of({
+        token: 'FAKE_JWT_TOKEN_ABC123',
+        user: {
+          email,
+          role: 'ADMIN'
+        }
+      }).pipe(
+        delay(100),
+        tap(response => {
+          localStorage.setItem('token', response.token);
+        })
+      );
+    }
+
+    return throwError(() => new Error('Invalid credentials'));
   }
-}
+
+  logout(): void{
+    localStorage.removeItem('token');
+  }
+
+  isLogged(): boolean {
+    return !!localStorage.getItem('token');
