@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -22,13 +22,14 @@ import { AuthService } from '../../core/services/auth/auth.service';
   ],
   providers: [MessageService],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrls: ['./login.scss'],
 })
 export class Login {
 
   email: string = '';
   password: string = '';
   loading = false;
+  @Output() loginSuccess = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService,
@@ -41,13 +42,20 @@ export class Login {
     this.loading = true;
 
     this.authService.login(this.email, this.password).subscribe({
-      next: () =>{
+      next: (response) =>{
         this.loading = false;
+
+        //Save token
+        localStorage.setItem('token', response.token);
+
         this.messageService.add({
-          severity: 'succes',
+          severity: 'success',
           summary: 'Login succesful',
           detail: 'Welcome to the Game Store'
         });
+
+        //Notify Home
+        this.loginSuccess.emit();
       },
       error: () => {
         this.loading = false;
