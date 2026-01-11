@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.kefessan.playstationet.dto.RegisterRequest;
 import com.kefessan.playstationet.dto.UserResponse;
+import com.kefessan.playstationet.dto.UserUpdateRequest;
 import com.kefessan.playstationet.enumeration.ERole;
 import com.kefessan.playstationet.exception.EmailAlreadyExistsException;
 import com.kefessan.playstationet.exception.UserAlreadyExistsException;
+import com.kefessan.playstationet.exception.UserNotFoundException;
 import com.kefessan.playstationet.model.Role;
 import com.kefessan.playstationet.model.User;
 import com.kefessan.playstationet.repository.RoleRepository;
@@ -79,4 +81,53 @@ public class UserService {
             )
             .collect(Collectors.toList());
 }
+private UserResponse mapToResponse(User user) {
+    // Usa directamente user.getRoles(), porque con fetch=EAGER ya trae los roles actualizados
+    return UserResponse.builder()
+            .id(user.getIdUser())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .firstName(user.getName())
+            .lastName(user.getLastName())
+            .roles(
+                user.getRoles()
+                        .stream()
+                        .map(Role::getRoleName) // método más limpio con method reference
+                        .collect(Collectors.toSet())
+            )
+            .build();
+}
+public UserResponse updateUser(Long id, UserUpdateRequest request) {
+
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new UserNotFoundException(id));
+
+    if (request.getUsername() != null) user.setUsername(request.getUsername());
+    if (request.getEmail() != null) user.setEmail(request.getEmail());
+    if (request.getPassword() != null && !request.getPassword().isBlank())
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+    if (request.getFirstName() != null) user.setName(request.getFirstName());
+    if (request.getLastName() != null) user.setLastName(request.getLastName());
+
+   if (request.getRole() != null) {
+    ERole newRoleEnum = ERole.valueOf(request.getRole());
+
+    // Traer el rol real de la BD
+    Role roleEntity = roleRepository.findByRoleName(newRoleEnum.name())
+            .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + request.getRole()));
+
+    // ⚡ Limpiar roles existentes y agregar el nuevo
+    user.getRoles().clear();      // limpia cualquier rol antiguo
+    user.getRoles().add(roleEntity); // agrega el nuevo rol
+
+    // Actualizar flag admin
+    user.setIsAdmin(newRoleEnum == ERole.ROLE_ADMIN);
+}
+
+    // Guardar y refrescar
+    user = userRepository.saveAndFlush(user);
+
+    return mapToResponse(user);
+}
+
 }
