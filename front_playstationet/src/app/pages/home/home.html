@@ -19,7 +19,12 @@
   header="Login"
   [(visible)]="showLogin"
   [modal]="true"
-  [closable]="true">
+  [closable]="true"
+  [dismissableMask]="true"
+  [style]="{ width: '420px' }"
+  [breakpoints]="{ '768px': '90vw' }">
 
-  <app-login (loginSuccess)="onLoginSuccess()"></app-login>
+  <app-login></app-login>
+
 </p-dialog>
+

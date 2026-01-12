@@ -4,11 +4,8 @@ $accent: #456882;
 $light: #E3E3E3;
 
 .login-container {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, $light);
 }
 
 .login-card {
