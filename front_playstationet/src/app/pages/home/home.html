@@ -16,10 +16,14 @@
 
 <!--Login Modal-->
 <p-dialog
-  header="Login"
   [(visible)]="showLogin"
   [modal]="true"
-  [closable]="true">
+  [closable]="false"
+  [dismissableMask]="true"
+  [style]="{ width: '400px', overflow: 'hidden' }"
+  contentStyleClass="login-dialog">
 
-  <app-login (loginSuccess)="onLoginSuccess()"></app-login>
+  <app-login (close)="showLogin = false"></app-login>
+
 </p-dialog>
+

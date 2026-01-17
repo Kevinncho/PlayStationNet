@@ -26,15 +26,17 @@ import { AuthService } from '../../core/services/auth/auth.service';
 })
 export class Login {
 
+  @Output() close = new EventEmitter<void>();
+
   email: string = '';
   password: string = '';
   loading = false;
-  @Output() loginSuccess = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService,
     private messageService: MessageService
   ) {}
+
 
   login(form: NgForm) {
     if (form.invalid) return;
@@ -54,8 +56,7 @@ export class Login {
           detail: 'Welcome to the Game Store'
         });
 
-        //Notify Home
-        this.loginSuccess.emit();
+        setTimeout(() => this.close.emit(), 600);
       },
       error: () => {
         this.loading = false;

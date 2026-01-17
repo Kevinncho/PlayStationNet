@@ -1,5 +1,12 @@
-<div class="login-container">
+<div class="login-wrapper">
+
+  <!-- Botón cerrar -->
+  <button class="close-btn" type="button" (click)="close.emit()">
+    <i class="pi pi-times"></i>
+  </button>
+
   <p-card header="Game Store Login" class="login-card">
+
     <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" novalidate>
 
       <div class="field">
@@ -14,10 +21,6 @@
           email
           #emailCtrl="ngModel"
         />
-
-        <small class="error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
-          Please enter a valid email
-        </small>
       </div>
 
       <div class="field">
@@ -30,13 +33,9 @@
           [(ngModel)]="password"
           required
           minlength="4"
-          #passwordCtrl="ngModel"
           [feedback]="false"
+          #passwordCtrl="ngModel"
         />
-
-        <small class="error" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
-          Password is required (min 4 characters)
-        </small>
       </div>
 
       <p-button
@@ -48,6 +47,7 @@
       </p-button>
 
     </form>
+
   </p-card>
 
   <p-toast></p-toast>
