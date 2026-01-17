@@ -1,28 +1,9 @@
+<app-navbar></app-navbar>
 
-@if (!isLoggedIn) {
-  <app-login (loginSuccess)="onLoginSuccess()"></app-login>
-} @else {
-  <div>
-    <app-navbar (toggleSidebar)="showSidebar = !showSidebar"  (cerrarSesion)="logout()"></app-navbar>
+<div class="main-layout">
+  <app-sidebar></app-sidebar>
 
-    <div class="main-layout">
-      <!-- <app-sidebar [show]="showSidebar" (seleccion)="changeApp($event)"></app-sidebar> -->
-
-      @switch (selectedApp) {
-        @case ('home') {
-          <div class="contenido">
-            <app-home></app-home>
-          </div>
-        } @default {
-          <div class="contenido">
-            <app-home></app-home>
-          </div>
-        }
-        <!-- <app-control-cambiar-contrasena *ngSwitchCase="'cambiarPwd'" (cerrarSesion)="logout()"></app-control-cambiar-contrasena> -->
-      }
-
-    </div>
+  <div class="content">
+    <router-outlet></router-outlet>
   </div>
-}
-
-<!-- todo routerLink -->
+</div>

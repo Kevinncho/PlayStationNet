@@ -1,1 +1,54 @@
-<p>login works!</p>
+<div class="login-wrapper">
+
+  <!-- Botón cerrar -->
+  <button class="close-btn" type="button" (click)="close.emit()">
+    <i class="pi pi-times"></i>
+  </button>
+
+  <p-card header="Game Store Login" class="login-card">
+
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" novalidate>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          pInputText
+          [(ngModel)]="email"
+          required
+          email
+          #emailCtrl="ngModel"
+        />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          pPassword
+          [(ngModel)]="password"
+          required
+          minlength="4"
+          [feedback]="false"
+          #passwordCtrl="ngModel"
+        />
+      </div>
+
+      <p-button
+        type="submit"
+        label="Sign in"
+        icon="pi pi-sign-in"
+        [loading]="loading"
+        [disabled]="loginForm.invalid">
+      </p-button>
+
+    </form>
+
+  </p-card>
+
+  <p-toast></p-toast>
+</div>

@@ -1,0 +1,73 @@
+$primary: #000080;
+$secondary: #035096;
+$light: #ffffff;
+
+.login-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  overflow: hidden; // 🔥 elimina scroll
+}
+
+/* Botón cerrar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  color: $light;
+  cursor: pointer;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    color: lighten($light, 10%);
+  }
+}
+
+.login-card {
+  width: 100%;
+
+  ::ng-deep .p-card {
+    background-color: rgba(0, 0, 128, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: $light;
+  }
+
+  ::ng-deep .p-card-title {
+    text-align: center;
+    color: $light;
+  }
+}
+
+.field {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: $light;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+/* Botón */
+::ng-deep .p-button {
+  width: 100%;
+  background-color: $secondary;
+  border: none;
+}
+
+::ng-deep .p-button:hover {
+  background-color: lighten($secondary, 10%);
+}

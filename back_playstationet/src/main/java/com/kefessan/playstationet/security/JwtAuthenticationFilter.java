@@ -15,8 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtAuthenticationFilter
-        extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
@@ -27,38 +26,43 @@ public class JwtAuthenticationFilter
         this.userDetailsService = userDetailsService;
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain)
-            throws ServletException, IOException {
+ @Override
+protected void doFilterInternal(HttpServletRequest request,
+                                HttpServletResponse response,
+                                FilterChain chain)
+        throws ServletException, IOException {
 
-        String header = request.getHeader("Authorization");
+    String path = request.getServletPath();
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-            String username = jwtUtil.extractUsername(token);
+    // 🔑 Excluir endpoints públicos
+    if (path.startsWith("/auth")) {
+        chain.doFilter(request, response);
+        return; // no ejecutamos JWT ni security aquí
+    }
 
-            if (username != null &&
-                SecurityContextHolder.getContext().getAuthentication() == null) {
+    // Código original del filtro JWT
+    String header = request.getHeader("Authorization");
+    if (header != null && header.startsWith("Bearer ")) {
+        String token = header.substring(7);
+        String username = jwtUtil.extractUsername(token);
 
-                UserDetails userDetails =
-                        userDetailsService.loadUserByUsername(username);
+        if (username != null &&
+            SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                if (jwtUtil.isTokenValid(token, userDetails)) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                    UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities());
+            if (jwtUtil.isTokenValid(token, userDetails)) {
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities());
 
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(auth);
-                }
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
-
-        chain.doFilter(request, response);
     }
+
+    chain.doFilter(request, response);
+}
 }
