@@ -129,5 +129,16 @@ public UserResponse updateUser(Long id, UserUpdateRequest request) {
 
     return mapToResponse(user);
 }
+   public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        userRepository.deleteById(id);
+    }
+    public UserResponse getUserById(Long id) {
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new UserNotFoundException(id));
 
+    return mapToResponse(user);
+}
 }

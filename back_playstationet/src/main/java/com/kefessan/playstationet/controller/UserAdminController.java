@@ -37,4 +37,14 @@ public ResponseEntity<UserResponse> updateUser(
     UserResponse updatedUser = userService.updateUser(id, request);
     return ResponseEntity.ok(updatedUser);
 }
+@DeleteMapping("/{id}")
+public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    userService.deleteUser(id);
+    return ResponseEntity.noContent().build();
+}
+@GetMapping("/{id}")
+public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
+    UserResponse user = userService.getUserById(id);
+    return ResponseEntity.ok(user);
+}
 }
