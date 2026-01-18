@@ -1,1 +1,23 @@
-@import 'primeicons/primeicons.css';/*# sourceMappingURL=styles.css.map */
+@charset "UTF-8";
+@import 'primeicons/primeicons.css';
+/*
+rem → tamaños, padding, gaps
+clamp() → anchos
+% → layouts flexibles
+min-height: 100vh
+*/
+:root {
+  /* 🎨 Colores */
+  --color-primary: #1b3c53;
+  --color-secondary: #f9a72b;
+  --color-line: #1c2a35;
+  /* 🧱 Bordes */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+}
+
+body {
+  background-color: #1b3c53;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}/*# sourceMappingURL=styles.css.map */
