@@ -141,4 +141,12 @@ public UserResponse updateUser(Long id, UserUpdateRequest request) {
 
     return mapToResponse(user);
 }
+public UserResponse getUserByUsername(String username) {
+    User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+    return mapToResponse(user);
+}
+
+
 }
