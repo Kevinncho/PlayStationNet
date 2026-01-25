@@ -147,6 +147,29 @@ public UserResponse getUserByUsername(String username) {
 
     return mapToResponse(user);
 }
+public UserResponse updateMyUser(String username, UserUpdateRequest request) {
 
+    User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+    // ✅ Campos editables por el propio usuario
+    
+    if (request.getUsername() != null) user.setUsername(request.getUsername());
+    if (request.getEmail() != null) user.setEmail(request.getEmail());
+    if (request.getPassword() != null && !request.getPassword().isBlank())
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+    if (request.getFirstName() != null) user.setName(request.getFirstName());
+    if (request.getLastName() != null) user.setLastName(request.getLastName());
+
+    user = userRepository.saveAndFlush(user);
+
+    return mapToResponse(user);
+}
+    public void deleteMyUser(String username) {
+
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        userRepository.delete(user);
+    }
 }
