@@ -1,15 +1,16 @@
 .sidebar {
+  width: clamp(220px, 15vw, 280px);
   background: #456882;
   color: white;
-  width: clamp(220px, 15vw, 280px);
-  min-height: 100%;
+  min-height: 100vh;
   transition: width 0.3s ease;
+  padding: 1rem;
+  margin: 16px;
   border-radius: var(--radius-sm);
   border: 1px solid #e0feff;
   position: sticky;
   top: 0;
 }
-// todo Sticky doesn't work well yet
 
 .sidebar.collapsed {
   width: 70px;
@@ -28,10 +29,11 @@
 }
 
 .menu li {
-  // display: flex;
-  // align-items: center;
+  display: flex;
+  align-items: center;
   gap: 1rem;
   padding: 0.75rem 0.5rem;
+  cursor: pointer;
   border-radius: 6px;
 }
 
@@ -41,16 +43,4 @@
 
 .menu i {
   font-size: 1.2rem;
-}
-
-.ripple-box {
-  display: flex;
-  user-select: none;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem;
-  font-weight: bold;
-  background: var(--p-content-background);
-  border: 1px solid var(--p-content-border-color);
-  border-radius: var(--p-content-border-radius);
-}
+}/*# sourceMappingURL=sidebar.css.map */

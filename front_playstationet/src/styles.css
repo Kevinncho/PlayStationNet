@@ -1,6 +1,5 @@
+@charset "UTF-8";
 @import 'primeicons/primeicons.css';
-@import 'primeflex/primeflex.css';
-
 /*
 rem → tamaños, padding, gaps
 clamp() → anchos
@@ -16,8 +15,9 @@ min-height: 100vh
   --radius-sm: 6px;
   --radius-md: 10px;
 }
+
 body {
   background-color: #1b3c53;
   margin: 0;
   font-family: Arial, sans-serif;
-}
+}/*# sourceMappingURL=styles.css.map */
