@@ -1,0 +1,65 @@
+@charset "UTF-8";
+.login-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Botón cerrar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.close-btn i {
+  font-size: 1.2rem;
+}
+.close-btn:hover {
+  color: white;
+}
+
+.login-card {
+  width: 100%;
+}
+.login-card ::ng-deep .p-card {
+  background-color: rgba(0, 0, 128, 0.85);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #ffffff;
+}
+.login-card ::ng-deep .p-card-title {
+  text-align: center;
+  color: #ffffff;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+.field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #ffffff;
+}
+.field input {
+  width: 100%;
+}
+
+/* Botón */
+::ng-deep .p-button {
+  width: 100%;
+  background-color: #035096;
+  border: none;
+}
+
+::ng-deep .p-button:hover {
+  background-color: rgb(4, 106.6666666667, 200);
+}/*# sourceMappingURL=login.css.map */
