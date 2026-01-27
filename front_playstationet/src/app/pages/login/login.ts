@@ -28,7 +28,7 @@ export class Login {
 
   @Output() close = new EventEmitter<void>();
 
-  email: string = '';
+  username: string = '';
   password: string = '';
   loading = false;
 
@@ -38,13 +38,16 @@ export class Login {
   ) {}
 
 
-  login(form: NgForm) {
+  login(form: NgForm): void {
     if (form.invalid) return;
 
     this.loading = true;
 
-    this.authService.login(this.email, this.password).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: (response) =>{
+        console.log('✅ LOGIN OK');
+        console.log('TOKEN:', localStorage.getItem('token'));
+        console.log('ROLE:', localStorage.getItem('role'));
         this.loading = false;
 
         //Save token
@@ -58,12 +61,13 @@ export class Login {
 
         setTimeout(() => this.close.emit(), 600);
       },
-      error: () => {
+      error: (err) => {
+        console.error('❌ ERROR LOGIN', err);
         this.loading = false;
         this.messageService.add({
           severity: 'error',
           summary: 'Login failed',
-          detail: 'Invalid email or password'
+          detail: 'Invalid username or password'
         });
       }
     })
