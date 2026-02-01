@@ -1,0 +1,102 @@
+<div class="login-wrapper">
+
+  <!-- Close Button -->
+  <button class="close-btn" type="button" (click)="close.emit()">
+    <i class="pi pi-times"></i>
+  </button>
+
+  <p-card header="Create account">
+    <!-- BARRA DE PROGRESO -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          [style.width]="step === 1 ? '50%' : '100%'">
+        </div>
+      </div>
+
+      <div class="steps">
+        <span [class.active]="step >= 1">Account</span>
+        <span [class.active]="step >= 2">Profile</span>
+      </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <form [formGroup]="form">
+
+      <!-- STEP 1 -->
+      <div *ngIf="step === 1">
+
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            pInputText
+            formControlName="username" />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            pInputText
+            formControlName="email" />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            pInputText
+            formControlName="password" />
+        </div>
+
+        <button
+          pButton
+          label="Next"
+          class="w-full mt-3"
+          (click)="nextStep()">
+        </button>
+      </div>
+
+      <!-- STEP 2 -->
+      <div *ngIf="step === 2">
+
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input
+            id="firstName"
+            pInputText
+            formControlName="firstName" />
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last name</label>
+          <input
+            id="lastName"
+            pInputText
+            formControlName="lastName" />
+        </div>
+
+        <div class="actions">
+          <button
+            pButton
+            label="Back"
+            severity="secondary"
+            (click)="step = 1">
+          </button>
+
+          <button
+            pButton
+            label="Register"
+            class="flex-1"
+            (click)="submit()">
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </p-card>
+</div>
