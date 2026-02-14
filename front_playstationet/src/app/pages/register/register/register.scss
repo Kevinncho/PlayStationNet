@@ -15,13 +15,12 @@ $light: #E3E3E3;
   overflow: hidden;
 }
 
-/* ===== MODAL (p-dialog) ===== */
+/* ===== MODAL ===== */
 ::ng-deep .p-dialog {
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* ❌ HEADER ELIMINADO */
 ::ng-deep .p-dialog-header {
   display: none !important;
 }
@@ -29,11 +28,7 @@ $light: #E3E3E3;
 /* ===== CONTENIDO ===== */
 ::ng-deep .p-dialog-content {
   padding: 0 !important;
-  background: linear-gradient(
-    160deg,
-    $primary,
-    $secondary
-  ) !important;
+  background: linear-gradient(160deg, $primary, $secondary) !important;
   color: $light;
   border-radius: 16px;
 }
@@ -44,7 +39,6 @@ $light: #E3E3E3;
   box-shadow: none;
 }
 
-/* ===== CARD BODY ===== */
 ::ng-deep .p-card-body {
   padding: 1.6rem 1.6rem 1.8rem;
   display: flex;
@@ -76,17 +70,53 @@ $light: #E3E3E3;
   text-align: center;
   color: $light;
   font-weight: 600;
-  margin: 0 0 1.6rem 0; /* separación clara del primer campo */
+  margin-bottom: 1.2rem;
+}
+
+/* ===== BARRA DE PROGRESO ===== */
+.progress-container {
+  margin-bottom: 1.6rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(227, 227, 227, 0.2);
+  border-radius: 4px;
+  border: 1px solid #E3E3E3;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: $secondary;
+  transition: width 0.3s ease;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+
+  span {
+    opacity: 0.4;
+    color: $light;
+  }
+
+  .active {
+    opacity: 1;
+    font-weight: 600;
+  }
 }
 
 /* ===== CAMPOS ===== */
 .field {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem; /* label ↔ input */
+  gap: 0.45rem;
 }
 
-/* 🔥 separación ENTRE campos */
 .field + .field {
   margin-top: 1.4rem;
 }
@@ -106,10 +136,6 @@ $light: #E3E3E3;
   border: 1px solid rgba(227, 227, 227, 0.3);
   border-radius: 6px;
 
-  &::placeholder {
-    color: rgba(227, 227, 227, 0.6);
-  }
-
   &:focus {
     border-color: $accent;
     box-shadow: 0 0 0 1px $accent;
@@ -117,11 +143,9 @@ $light: #E3E3E3;
   }
 }
 
-/* ===== BOTÓN LOGIN ===== */
+/* ===== BOTONES ===== */
 ::ng-deep .p-button {
-  width: 100%;
   height: 42px;
-  margin-top: 1.8rem;
   background-color: $accent !important;
   border: none !important;
   font-weight: 600;
@@ -130,4 +154,30 @@ $light: #E3E3E3;
 
 ::ng-deep .p-button:hover {
   background-color: color.adjust($accent, $lightness: 10%) !important;
+}
+
+/* BOTÓN BACK */
+::ng-deep .p-button.p-button-secondary {
+  background: transparent !important;
+  border: 1px solid rgba(227, 227, 227, 0.4) !important;
+  color: $light !important;
+}
+
+/* ===== ACCIONES (BACK / REGISTER) ===== */
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+
+/* Back → más pequeño */
+.actions .p-button-secondary {
+  flex: 1;              /* ocupa menos */
+  min-width: 90px;
+}
+
+/* Register → protagonista */
+.actions .p-button:not(.p-button-secondary) {
+  flex: 2;              /* ocupa más */
+  min-width: 140px;
 }

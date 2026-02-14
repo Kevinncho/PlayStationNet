@@ -10,16 +10,15 @@
     <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" novalidate>
 
       <div class="field">
-        <label for="email">Email</label>
+        <label for="username">Username</label>
         <input
-          id="email"
-          name="email"
-          type="email"
+          id="username"
+          name="username"
+          type="text"
           pInputText
-          [(ngModel)]="email"
+          [(ngModel)]="username"
           required
-          email
-          #emailCtrl="ngModel"
+          #usernameCtrl="ngModel"
         />
       </div>
 
