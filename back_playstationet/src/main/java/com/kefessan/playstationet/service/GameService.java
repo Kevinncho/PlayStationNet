@@ -51,4 +51,18 @@ public class GameService {
 
         return gameRepository.save(game);
     }
+
+        public GameResponseDto getGameById(Long id) {
+        Game game = gameRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Game not found with id: " + id));
+
+        return gameMapper.toResponseDto(game);
+        }
+        public void deleteGame(Long id) {
+
+        Game game = gameRepository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("Game not found with id: " + id));
+
+        gameRepository.delete(game);
+        }
 }
