@@ -1,1 +1,49 @@
-<p>home works!</p>
+<!--Header-->
+<div class="home-header">
+  <button
+  pButton
+  label="Login"
+  icon="pi pi-sign-in"
+  (click)="showLogin = true">
+  </button>
+
+  <button
+    pButton
+    label="Register"
+    icon="pi pi-user-plus"
+    (click)="showRegister = true">
+  </button>
+</div>
+
+<!--Content-->
+<div class="home-content">
+  <h1>Welcome to PlayStatioNet</h1>
+  <p>Her you cansee your promotions, games, etc.</p>
+</div>
+
+<!--Login Modal-->
+<p-dialog
+  [(visible)]="showLogin"
+  [modal]="true"
+  [closable]="false"
+  [dismissableMask]="true"
+  appendTo="body"
+  [style]="{ width: '400px', overflow: 'hidden' }"
+  (onHide)="showLogin = false"
+  contentStyleClass="login-dialog">
+
+  <app-login (close)="showLogin = false"></app-login>
+</p-dialog>
+
+<!--Register Modal-->
+<p-dialog
+  [(visible)]="showRegister"
+  [modal]="true"
+  [closable]="false"
+  [dismissableMask]="true"
+  appendTo="body"
+  [style]="{ width: '400px', overflow: 'hidden' }"
+  (onHide)="showRegister= false">
+
+  <app-register (close)="showRegister = false"></app-register>
+</p-dialog>
