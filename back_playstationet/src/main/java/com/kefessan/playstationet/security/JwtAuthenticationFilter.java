@@ -21,51 +21,68 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(JwtUtil jwtUtil,
-                                   UserDetailsService userDetailsService) {
-        this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
-    }
+                               UserDetailsService userDetailsService) {
+    this.jwtUtil = jwtUtil;
+    this.userDetailsService = userDetailsService;
+    System.out.println("JWT FILTER CONSTRUCTOR CALLED");
+}
 
     // 🔑 AQUÍ se excluyen endpoints públicos
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
-
-        return path.startsWith("/auth")
-                || (path.startsWith("/games") && request.getMethod().equals("GET"));
+       return false;
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain)
-            throws ServletException, IOException {
+   @Override
+protected void doFilterInternal(HttpServletRequest request,
+                                HttpServletResponse response,
+                                FilterChain chain)
+        throws ServletException, IOException {
 
-        String header = request.getHeader("Authorization");
+    System.out.println("======== JWT FILTER ========");
+    System.out.println("URI: " + request.getRequestURI());
+    System.out.println("Method: " + request.getMethod());
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-            String username = jwtUtil.extractUsername(token);
+    String header = request.getHeader("Authorization");
+    System.out.println("Authorization header: " + header);
 
-            if (username != null &&
-                SecurityContextHolder.getContext().getAuthentication() == null) {
+    System.out.println("Authentication BEFORE: " +
+            SecurityContextHolder.getContext().getAuthentication());
 
-                UserDetails userDetails =
-                        userDetailsService.loadUserByUsername(username);
+    if (header != null && header.startsWith("Bearer ")) {
 
-                if (jwtUtil.isTokenValid(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities());
+        String token = header.substring(7);
+        System.out.println("Token extracted: " + token);
 
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(auth);
-                }
+        String username = jwtUtil.extractUsername(token);
+        System.out.println("Username from token: " + username);
+
+        if (username != null &&
+            SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails =
+                    userDetailsService.loadUserByUsername(username);
+
+            System.out.println("Authorities from UserDetails: " +
+                    userDetails.getAuthorities());
+
+            if (jwtUtil.isTokenValid(token, userDetails)) {
+
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(auth);
+
+                System.out.println("Authentication AFTER SET: " +
+                        SecurityContextHolder.getContext().getAuthentication());
             }
         }
-
-        chain.doFilter(request, response);
     }
+
+    chain.doFilter(request, response);
+}
+
 }
