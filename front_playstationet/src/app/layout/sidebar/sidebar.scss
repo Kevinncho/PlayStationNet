@@ -3,9 +3,11 @@
   color: white;
   width: clamp(220px, 15vw, 280px);
   min-height: 100%;
+  position: relative;
   transition: width 0.3s ease;
   border-radius: var(--radius-sm);
   border: 1px solid #e0feff;
+  box-sizing: border-box;
 }
 
 // todo Sticky doesn't work well yet
@@ -17,7 +19,22 @@
 .toggle-btn {
   // margin-bottom: 1.5rem;
   // width: 100%;
-  background: #f9a72b;
+  background: transparent;
+}
+
+:host ::ng-deep .toggle-btn.p-button {
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.55) !important;
+  color: #1b3c53 !important;
+}
+
+:host ::ng-deep .toggle-btn.p-button:hover,
+:host ::ng-deep .toggle-btn.p-button:focus,
+:host ::ng-deep .toggle-btn.p-button:active,
+:host ::ng-deep .toggle-btn.p-button.p-focus {
+  background: #f3f6fa !important;
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  color: #1b3c53 !important;
 }
 
 .menu {
@@ -26,9 +43,39 @@
   margin: 0;
 }
 
+.menu > li:not(.push-to-bottom) {
+  padding: 0 0.35rem;
+}
+
 .menu li a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
   gap: 0.5rem;
   border-radius: var(--radius-sm);
+  color: #ffffff;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.menu li a span,
+.menu li a i {
+  color: #ffffff !important;
+}
+
+.menu li a:visited {
+  color: #ffffff;
+}
+
+.menu li a:hover,
+.menu li a.active-link {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(224, 254, 255, 0.35);
 }
 
 // .menu li.no-padding {
@@ -63,6 +110,13 @@
   gap: 1rem;
 }
 
+.user-link {
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+}
+
 .avatar-wrapper.collapsed {
   transform: scale(0.9);
 }
@@ -74,7 +128,10 @@
 .push-to-bottom {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
+  padding: 0 0.35rem 0.45rem;
+  box-sizing: border-box;
 }
 
 .user-name {

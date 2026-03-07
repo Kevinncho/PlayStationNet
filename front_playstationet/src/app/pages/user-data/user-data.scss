@@ -1,0 +1,74 @@
+.user-data-page {
+  padding: 1.25rem;
+}
+
+.page-head {
+  margin-bottom: 1rem;
+}
+
+.page-head h1 {
+  margin: 0;
+  color: #1b3c53;
+}
+
+.page-head p {
+  margin-top: 0.3rem;
+  color: #456882;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.8rem;
+  border: 1px solid #d7e8f2;
+  border-radius: 0.75rem;
+  background: #f8fcff;
+}
+
+.item.full {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+  color: #456882;
+}
+
+.value {
+  font-size: 1rem;
+  color: #173042;
+}
+
+.roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.warn {
+  margin-top: 1rem;
+  color: #b45309;
+  font-weight: 600;
+}
+
+.updating {
+  margin: 0 0 0.8rem 0;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}

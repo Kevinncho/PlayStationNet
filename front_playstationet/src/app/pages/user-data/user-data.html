@@ -1,0 +1,65 @@
+<section class="user-data-page">
+  <div class="page-head">
+    <h1>Datos del usuario</h1>
+    <p>Tu información principal de la cuenta PlayStationet.</p>
+  </div>
+
+  @if (loading && !user) {
+    <p-card>
+      <p>Cargando datos...</p>
+    </p-card>
+  } @else if (user) {
+    <p-card>
+      @if (updating) {
+        <p class="updating">Actualizando datos...</p>
+      }
+
+      <div class="profile-grid">
+        <div class="item">
+          <span class="label">Nombre visible</span>
+          <span class="value">{{ getDisplayName() }}</span>
+        </div>
+
+        <div class="item">
+          <span class="label">Usuario</span>
+          <span class="value">{{ user.username }}</span>
+        </div>
+
+        <div class="item">
+          <span class="label">Email</span>
+          <span class="value">{{ user.email || 'No disponible' }}</span>
+        </div>
+
+        <div class="item">
+          <span class="label">ID</span>
+          <span class="value">{{ user.id || 'No disponible' }}</span>
+        </div>
+
+        <div class="item full">
+          <span class="label">Roles</span>
+          <div class="roles">
+            @if (user.roles?.length) {
+              @for (role of user.roles; track role) {
+                <p-tag [value]="role"></p-tag>
+              }
+            } @else {
+              <span class="value">Sin roles disponibles</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (errorMessage) {
+        <p class="warn">{{ errorMessage }}</p>
+      }
+
+      <div class="actions">
+        <button pButton type="button" label="Recargar" icon="pi pi-refresh" (click)="loadUserData()"></button>
+      </div>
+    </p-card>
+  } @else {
+    <p-card>
+      <p class="warn">{{ errorMessage || 'No hay datos para mostrar.' }}</p>
+    </p-card>
+  }
+</section>

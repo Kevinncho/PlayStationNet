@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
-import { AuthService } from './core/services/auth/auth.service';
+import { UserData } from './pages/user-data/user-data';
 
 export const routes: Routes = [
    {
@@ -8,8 +8,16 @@ export const routes: Routes = [
     component: Home
   },
   {
+    path: 'user-data',
+    component: UserData
+  },
+  {
     path: 'home',
     redirectTo: '',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];
