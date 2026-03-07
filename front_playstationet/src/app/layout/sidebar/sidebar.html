@@ -19,7 +19,13 @@
 
   <ul class="menu">
     <li>
-      <a pRipple routerLink="/home" class="flex p-2 py-3 items-center cursor-pointer">
+      <a
+        pRipple
+        routerLink="/home"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex p-2 py-3 items-center cursor-pointer"
+      >
         <i class="pi pi-home"></i>
         @if (!collapsed) {
           <span class="ml-2">Home</span>
@@ -27,7 +33,7 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/search" class="flex p-2 py-3 items-center cursor-pointer">
+      <a pRipple routerLink="/search" routerLinkActive="active-link" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-search"></i>
         @if (!collapsed) {
           <span class="ml-2">Search</span>
@@ -35,7 +41,7 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/store" class="flex p-2 py-3 items-center cursor-pointer">
+      <a pRipple routerLink="/store" routerLinkActive="active-link" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-shopping-cart"></i>
         @if (!collapsed) {
           <span class="ml-2">Store</span>
@@ -43,7 +49,7 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/settings" class="flex p-2 py-3 items-center cursor-pointer">
+      <a pRipple routerLink="/settings" routerLinkActive="active-link" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-cog"></i>
         @if (!collapsed) {
           <span class="ml-2">Settings</span>
@@ -51,7 +57,7 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/wishlist" class="flex p-2 py-3 items-center cursor-pointer">
+      <a pRipple routerLink="/wishlist" routerLinkActive="active-link" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-heart"></i>
         @if (!collapsed) {
           <span class="ml-2">Wishlist</span>
@@ -59,7 +65,12 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/notifications" class="flex p-2 py-3 items-center cursor-pointer">
+      <a
+        pRipple
+        routerLink="/notifications"
+        routerLinkActive="active-link"
+        class="flex p-2 py-3 items-center cursor-pointer"
+      >
         <i class="pi pi-bell"></i>
         @if (!collapsed) {
           <span class="ml-2">Notifications</span>
@@ -110,7 +121,7 @@
     </li>
 
     <hr class="mb-4 mx-4 border-t border-0 border-surface" />
-    <li class="flex align-items-center no-padding push-to-bottom">
+    <li class="flex align-items-center push-to-bottom">
       <!-- <p-avatar
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
         shape="circle"
@@ -118,10 +129,16 @@
         style="height: auto"
       /> -->
 
-      <div class="avatar-wrapper" [class.collapsed]="collapsed">
+      <a
+        pRipple
+        routerLink="/user-data"
+        routerLinkActive="active-link"
+        class="avatar-wrapper user-link"
+        [class.collapsed]="collapsed"
+      >
         <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
-        <span class="font-bold user-name" [class.hidden]="collapsed">Usuario</span>
-      </div>
+        <span class="font-bold user-name" [class.hidden]="collapsed">{{ username }}</span>
+      </a>
     </li>
   </ul>
 </div>

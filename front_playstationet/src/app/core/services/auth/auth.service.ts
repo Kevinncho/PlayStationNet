@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { tap } from "rxjs/operators";
 import { jwtDecode } from "jwt-decode";
 
@@ -13,6 +13,16 @@ interface JwtPayload {
   roles: string[];
   exp: number;
   iat: number;
+}
+
+export interface UserProfile {
+  id?: number;
+  username: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  isAdmin?: boolean;
+  roles?: string[];
 }
 
 @Injectable({
@@ -57,6 +67,31 @@ export class AuthService {
     return roles ? JSON.parse(roles) : [];
   }
 
+  getCurrentUsername(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      return decoded.sub ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  getMyUser(): Observable<UserProfile> {
+    const token = this.getToken();
+    if (!token) {
+      return throwError(() => new Error('No authentication token found'));
+    }
+
+    return this.http.get<UserProfile>(`${this.apiUrl}/users/me`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    });
+  }
+
   hasRole(role: string): boolean {
     return this.getRoles().includes(role);
   }
@@ -66,7 +101,9 @@ export class AuthService {
     localStorage.removeItem(this.ROLES_KEY);
   }
 
-  register (data: any) {
-    return this.http.post(`${this.apiUrl}/auth/register`, data);
+  register(data: any): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/register`, data).pipe(
+      tap((res) => this.setSession(res.token))
+    );
   }
 }
