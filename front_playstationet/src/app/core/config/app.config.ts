@@ -10,8 +10,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideBrowserGlobalErrorListeners(),
     providePrimeNG({
+      ripple: true,
       theme: {
         preset: Aura,
+        options: {
+          prefix: 'p',
+          darkModeSelector: 'system',
+          cssLayer: false,
+        },
       },
     }),
     MessageService,

@@ -6,9 +6,8 @@
   transition: width 0.3s ease;
   border-radius: var(--radius-sm);
   border: 1px solid #e0feff;
-  position: sticky;
-  top: 0;
 }
+
 // todo Sticky doesn't work well yet
 
 .sidebar.collapsed {
@@ -16,8 +15,8 @@
 }
 
 .toggle-btn {
-  margin-bottom: 1.5rem;
-  width: 100%;
+  // margin-bottom: 1.5rem;
+  // width: 100%;
   background: #f9a72b;
 }
 
@@ -27,17 +26,19 @@
   margin: 0;
 }
 
-.menu li {
-  // display: flex;
-  // align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 0.5rem;
-  border-radius: 6px;
+.menu li a {
+  gap: 0.5rem;
+  border-radius: var(--radius-sm);
 }
 
-.menu li:hover {
-  background: #304657;
-}
+// .menu li.no-padding {
+//   padding: 0;
+// }
+
+// .menu li:hover {
+//   background: #304657;
+//   border-radius: var(--radius-sm);
+// }
 
 .menu i {
   font-size: 1.2rem;
@@ -53,4 +54,40 @@
   background: var(--p-content-background);
   border: 1px solid var(--p-content-border-color);
   border-radius: var(--p-content-border-radius);
+}
+
+.avatar-wrapper {
+  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-wrapper.collapsed {
+  transform: scale(0.9);
+}
+.avatar-wrapper :deep(.p-avatar) {
+  width: auto;
+  height: auto;
+}
+
+.push-to-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.user-name {
+  display: inline-block;
+  white-space: nowrap;
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transition:
+    clip-path 0.4s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.user-name.hidden {
+  clip-path: inset(0 100% 0 0); /* Oculta de derecha a izquierda */
+  opacity: 0;
 }

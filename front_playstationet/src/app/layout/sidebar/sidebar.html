@@ -1,14 +1,12 @@
-<div class="card flex flex-col items-center gap-4">
-  <div pRipple class="ripple-box">Default</div>
-</div>
-
 <div class="sidebar p-3 m-2 md:m-3 lg:m-4" [ngClass]="{ collapsed: collapsed }">
   <ul class="menu">
-    <li>
-      <i class="pi pi-play-circle"></i>
-      @if (!collapsed) {
-        <span>PlayStationet</span>
-      }
+    <li class="flex align-items-center">
+      <a pRipple routerLink="/home" class="flex p-2 py-3 items-center cursor-pointer">
+        <i class="pi pi-play-circle"></i>
+        @if (!collapsed) {
+          <span>PlayStationet</span>
+        }
+      </a>
     </li>
   </ul>
   <button
@@ -21,7 +19,7 @@
 
   <ul class="menu">
     <li>
-      <a pRipple routerLink="/home" class="flex items-center cursor-pointer">
+      <a pRipple routerLink="/home" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-home"></i>
         @if (!collapsed) {
           <span class="ml-2">Home</span>
@@ -29,23 +27,7 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/store" class="flex items-center cursor-pointer">
-        <i class="pi pi-shopping-cart"></i>
-        @if (!collapsed) {
-          <span class="ml-2">Store</span>
-        }
-      </a>
-    </li>
-    <li>
-      <a pRipple routerLink="/settings" class="flex items-center cursor-pointer">
-        <i class="pi pi-cog"></i>
-        @if (!collapsed) {
-          <span class="ml-2">Settings</span>
-        }
-      </a>
-    </li>
-    <li>
-      <a pRipple routerLink="/search" class="flex items-center cursor-pointer">
+      <a pRipple routerLink="/search" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-search"></i>
         @if (!collapsed) {
           <span class="ml-2">Search</span>
@@ -53,7 +35,23 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/wishlist" class="flex items-center cursor-pointer">
+      <a pRipple routerLink="/store" class="flex p-2 py-3 items-center cursor-pointer">
+        <i class="pi pi-shopping-cart"></i>
+        @if (!collapsed) {
+          <span class="ml-2">Store</span>
+        }
+      </a>
+    </li>
+    <li>
+      <a pRipple routerLink="/settings" class="flex p-2 py-3 items-center cursor-pointer">
+        <i class="pi pi-cog"></i>
+        @if (!collapsed) {
+          <span class="ml-2">Settings</span>
+        }
+      </a>
+    </li>
+    <li>
+      <a pRipple routerLink="/wishlist" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-heart"></i>
         @if (!collapsed) {
           <span class="ml-2">Wishlist</span>
@@ -61,7 +59,7 @@
       </a>
     </li>
     <li>
-      <a pRipple routerLink="/notifications" class="flex items-center cursor-pointer">
+      <a pRipple routerLink="/notifications" class="flex p-2 py-3 items-center cursor-pointer">
         <i class="pi pi-bell"></i>
         @if (!collapsed) {
           <span class="ml-2">Notifications</span>
@@ -69,8 +67,8 @@
       </a>
     </li>
 
-    <li class="p-3">
-      <!-- <i class="pi pi-bell"></i> -->
+    <li class="flex p-2 flex-column">
+      <!-- <div class="flex"></div> -->
       @if (!collapsed) {
         <div
           pRipple
@@ -79,39 +77,51 @@
           enterActiveClass="slidedown"
           leaveToClass="hidden"
           leaveActiveClass="slideup"
-          class="flex items-center cursor-pointer rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+          class="flex items-center justify-between cursor-pointer rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors duration-150 p-ripple"
         >
           <i class="pi pi-chart-line mr-2"></i>
-          <span>Games Played</span>
-          <i class="pi pi-chevron-down ml-auto"></i>
+          <div class="flex items-center">
+            <span class="ml-2">Games Played</span>
+          </div>
+          <i class="pi pi-chevron-down"></i>
         </div>
+
         <ul class="list-none p-0 m-0 overflow-hidden">
-          <li>
+          <li pRipple class="p-2">
             <a
-              pRipple
-              class="cursor-pointer p-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+              class="flex items-center cursor-pointer rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors duration-150 p-ripple"
+            >
+              <i class="pi pi-folder mr-2"></i>
+              <span class="font-medium">Projects</span>
+            </a>
+          </li>
+          <li pRipple class="p-2">
+            <a
+              class="flex items-center cursor-pointer rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors duration-150 p-ripple"
             >
               <i class="pi pi-folder mr-2"></i>
               <span class="font-medium">Projects</span>
             </a>
           </li>
         </ul>
+      } @else {
+        <i class="pi pi-chart-line mr-2"></i>
       }
     </li>
 
     <hr class="mb-4 mx-4 border-t border-0 border-surface" />
-    <li>
-      <p-avatar
+    <li class="flex align-items-center no-padding push-to-bottom">
+      <!-- <p-avatar
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
         shape="circle"
         size="large"
         style="height: auto"
-      />
-      @if (!collapsed) {
-        <div class="mt-auto">
-          <span class="font-bold">Ysabel Leal</span>
-        </div>
-      }
+      /> -->
+
+      <div class="avatar-wrapper" [class.collapsed]="collapsed">
+        <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
+        <span class="font-bold user-name" [class.hidden]="collapsed">Usuario</span>
+      </div>
     </li>
   </ul>
 </div>
