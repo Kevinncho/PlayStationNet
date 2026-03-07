@@ -2,6 +2,7 @@ package com.kefessan.playstationet.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,7 @@ public class GameCreateDTO {
     private BigDecimal price;
     private String coverImage;
     private LocalDate releaseDate;
-}
+    // cuando se crea un juego se pueden enviar los ids de categorías/ géneros
+    private Set<Long> categoryIds;
+    private Set<Long> genreIds;
+}    

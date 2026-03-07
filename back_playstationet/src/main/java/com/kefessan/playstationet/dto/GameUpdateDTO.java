@@ -2,6 +2,7 @@ package com.kefessan.playstationet.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -27,5 +28,9 @@ public class GameUpdateDTO {
     private String coverImage;
 
     private LocalDate releaseDate;
+
+    // campos extra para relacionar
+    private Set<Long> categoryIds;
+    private Set<Long> genreIds;
 
 }
