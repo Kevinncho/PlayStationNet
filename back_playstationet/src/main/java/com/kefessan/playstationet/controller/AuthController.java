@@ -17,7 +17,6 @@ import com.kefessan.playstationet.dto.RegisterRequest;
 import com.kefessan.playstationet.security.JwtUtil;
 import com.kefessan.playstationet.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

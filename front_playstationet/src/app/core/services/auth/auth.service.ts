@@ -23,6 +23,8 @@ export class AuthService {
   private readonly TOKEN_KEY = 'token';
   private readonly ROLES_KEY = 'roles';
 
+  private apiUrl = 'http://localhost:8080';
+
   constructor(private readonly http: HttpClient) {}
 
   login(username: string, password: string): Observable<LoginResponse> {
@@ -62,5 +64,9 @@ export class AuthService {
   logout(): void{
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.ROLES_KEY);
+  }
+
+  register (data: any) {
+    return this.http.post(`${this.apiUrl}/auth/register`, data);
   }
 }
