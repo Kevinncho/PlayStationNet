@@ -1,0 +1,51 @@
+.home-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  background-color: #1B3C53;
+}
+
+.home-header ::ng-deep .p-button {
+  margin-left: 0.5rem;
+  background-color: #234C6A;
+  color: #E3E3E3;
+}
+
+.home-content {
+  padding: 2rem;
+  text-align: center;
+  background-color: #E3E3E3;
+  min-height: 80vh; // para que siempre se vea un fondo
+}
+
+/* Elimina marco y fondo del dialog */
+::ng-deep .p-dialog {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Elimina padding interno */
+::ng-deep .p-dialog-content {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* Opcional: quita header del dialog */
+::ng-deep .p-dialog-header {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Opcional: estiliza el botón cerrar */
+::ng-deep .p-dialog-header-icon {
+  color: #E3E3E3;
+}
+
+.login-card {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+::ng-deep .login-dialog {
+  overflow: hidden !important;
+}
