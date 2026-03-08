@@ -68,11 +68,21 @@ public class GameService {
         Game game = gameRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Game not found"));
 
-        game.setTitle(dto.getTitle());
-        game.setDescription(dto.getDescription());
-        game.setPrice(dto.getPrice());
-        game.setCoverImage(dto.getCoverImage());
-        game.setReleaseDate(dto.getReleaseDate());
+        if (dto.getTitle() != null) {
+            game.setTitle(dto.getTitle());
+        }
+        if (dto.getDescription() != null) {
+            game.setDescription(dto.getDescription());
+        }
+        if (dto.getPrice() != null) {
+            game.setPrice(dto.getPrice());
+        }
+        if (dto.getCoverImage() != null) {
+            game.setCoverImage(dto.getCoverImage());
+        }
+        if (dto.getReleaseDate() != null) {
+            game.setReleaseDate(dto.getReleaseDate());
+        }
 
         if (dto.getCategoryIds() != null) {
             Set<Category> cats = new HashSet<>(categoryRepository.findAllById(dto.getCategoryIds()));
