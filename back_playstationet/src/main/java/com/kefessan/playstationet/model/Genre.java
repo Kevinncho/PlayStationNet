@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Genre {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idGenre;
 
     private String name;
