@@ -1,5 +1,6 @@
 package com.kefessan.playstationet.mapper;
 
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -18,16 +19,20 @@ public class GameMapper {
             .coverImage(game.getCoverImage())
             .releaseDate(game.getReleaseDate())
             .categories(
-                game.getCategories()
-                    .stream()
-                    .map(c -> c.getName())
-                    .collect(Collectors.toSet())
+                game.getCategories() != null ? 
+                    game.getCategories()
+                        .stream()
+                        .map(c -> c.getName())
+                        .collect(Collectors.toSet())
+                    : Collections.emptySet()
             )
             .genres(
-                game.getGenres()
-                    .stream()
-                    .map(g -> g.getName())
-                    .collect(Collectors.toSet())
+                game.getGenres() != null ?
+                    game.getGenres()
+                        .stream()
+                        .map(g -> g.getName())
+                        .collect(Collectors.toSet())
+                    : Collections.emptySet()
             )
             .build();
 }

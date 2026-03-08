@@ -35,6 +35,13 @@ public class GameController {
         return gameService.getGames(pageable);
     }
 
+    // filtro opcional por categoría: /games?category=3
+    @GetMapping(params = "category")
+    public Page<GameResponseDto> getGamesByCategory(@RequestParam("category") Long categoryId,
+                                                    Pageable pageable) {
+        return gameService.getGamesByCategory(categoryId, pageable);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<GameResponseDto> getGameById(@PathVariable Long id) {
         GameResponseDto game = gameService.getGameById(id);
