@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kefessan.playstationet.dto.GameCreateDTO;
+import com.kefessan.playstationet.dto.GameResponseDto;
 import com.kefessan.playstationet.dto.GameUpdateDTO;
-import com.kefessan.playstationet.model.Game;
 import com.kefessan.playstationet.service.GameService;
 
 import jakarta.validation.Valid;
@@ -28,18 +28,18 @@ public class GameAdminController {
     private final GameService gameService;
 
     @PostMapping
-    public ResponseEntity<Game> createGame(
+    public ResponseEntity<GameResponseDto> createGame(
             @Valid @RequestBody GameCreateDTO dto) {
 
-        Game game = gameService.createGame(dto);
+        GameResponseDto game = gameService.createGame(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(game);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Game> updateGame(
+    public ResponseEntity<GameResponseDto> updateGame(
             @PathVariable Long id,
             @Valid @RequestBody GameUpdateDTO dto) {
 
-        Game updatedGame = gameService.updateGame(id, dto);
+        GameResponseDto updatedGame = gameService.updateGame(id, dto);
         return ResponseEntity.ok(updatedGame);
     }
     @DeleteMapping("/{id}")

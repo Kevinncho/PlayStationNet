@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kefessan.playstationet.dto.CategoryResponseDTO;
 import com.kefessan.playstationet.model.Category;
+import com.kefessan.playstationet.model.Game;
 import com.kefessan.playstationet.repository.CategoryRepository;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
@@ -76,9 +78,19 @@ public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
     return ResponseEntity.noContent().build();
 }
 private CategoryResponseDTO mapToDto(Category category) {
-    return CategoryResponseDTO.builder()
+    CategoryResponseDTO.CategoryResponseDTOBuilder builder = CategoryResponseDTO.builder()
             .idCategory(category.getIdCategory())
-            .name(category.getName())
-            .build();
+            .name(category.getName());
+
+    if (category.getGames() != null) {
+        builder.games(
+                category.getGames()
+                        .stream()
+                        .map(Game::getTitle)
+                        .collect(java.util.stream.Collectors.toSet())
+        );
+    }
+
+    return builder.build();
 }
 }

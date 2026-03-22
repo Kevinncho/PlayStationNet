@@ -1,23 +1,23 @@
 package com.kefessan.playstationet.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryResponseDTO {
+public class ReviewUpdateDTO {
 
-    private Long idCategory;
-    private String name;
+    @Min(1)
+    @Max(5)
+    private Integer rating;
 
-    // nombres de juegos asociados (opcional, para mostrar relación)
-    private Set<String> games;
+    private String content;
 }
