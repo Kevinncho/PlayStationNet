@@ -30,6 +30,6 @@ public class Order {
     private BigDecimal totalAmount;
     private String status; // PENDING, COMPLETED, ETC
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items;
 }
