@@ -19,6 +19,7 @@ import com.kefessan.playstationet.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final AuthenticationManager authManager;

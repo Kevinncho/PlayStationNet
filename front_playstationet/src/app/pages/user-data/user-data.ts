@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { TagModule } from 'primeng/tag';
 import { AuthService, UserProfile } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-user-data',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, TagModule],
+  imports: [CommonModule, CardModule, ButtonModule],
   templateUrl: './user-data.html',
   styleUrl: './user-data.scss',
 })

@@ -1,3 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "js/ts.tsserver.experimental.enableProjectDiagnostics": false,
+    "java.compile.nullAnalysis.mode": "automatic"
 }

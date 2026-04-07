@@ -137,7 +137,9 @@
         [class.collapsed]="collapsed"
       >
         <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
-        <span class="font-bold user-name" [class.hidden]="collapsed">{{ username }}</span>
+        <span class="font-bold user-name" [class.hidden]="collapsed || !(isLoggedIn$ | async)">
+          {{ (username$ | async) || 'Usuario' }}
+        </span>
       </a>
     </li>
   </ul>

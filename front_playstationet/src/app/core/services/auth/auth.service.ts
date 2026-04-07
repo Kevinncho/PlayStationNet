@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { tap } from "rxjs/operators";
 import { jwtDecode } from "jwt-decode";
 
@@ -29,13 +29,18 @@ export interface UserProfile {
   providedIn: 'root'
 })
 export class AuthService {
-
   private readonly TOKEN_KEY = 'token';
   private readonly ROLES_KEY = 'roles';
+  private readonly currentUsernameSubject = new BehaviorSubject<string | null>(null);
+  private readonly isLoggedInSubject = new BehaviorSubject<boolean>(false);
 
   private apiUrl = 'http://localhost:8080';
+  readonly currentUsername$ = this.currentUsernameSubject.asObservable();
+  readonly isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+    this.syncAuthState();
+  }
 
   login(username: string, password: string): Observable<LoginResponse> {
 
@@ -52,31 +57,31 @@ export class AuthService {
 
     const decoded = jwtDecode<JwtPayload>(token);
     localStorage.setItem(this.ROLES_KEY, JSON.stringify(decoded.roles));
+    this.syncAuthState();
   }
 
   isLogged(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
+    return !!this.getValidPayload();
   }
 
   getToken():string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    if (!token) return null;
+
+    return this.getValidPayload() ? token : null;
   }
 
   getRoles(): string[] {
+    if (!this.getValidPayload()) {
+      return [];
+    }
+
     const roles = localStorage.getItem(this.ROLES_KEY);
     return roles ? JSON.parse(roles) : [];
   }
 
   getCurrentUsername(): string | null {
-    const token = this.getToken();
-    if (!token) return null;
-
-    try {
-      const decoded = jwtDecode<JwtPayload>(token);
-      return decoded.sub ?? null;
-    } catch {
-      return null;
-    }
+    return this.getValidPayload()?.sub ?? null;
   }
 
   getMyUser(): Observable<UserProfile> {
@@ -97,13 +102,44 @@ export class AuthService {
   }
 
   logout(): void{
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.ROLES_KEY);
+    this.clearSession();
+    this.syncAuthState();
   }
 
   register(data: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/register`, data).pipe(
       tap((res) => this.setSession(res.token))
     );
+  }
+
+  private syncAuthState(): void {
+    const payload = this.getValidPayload();
+    this.currentUsernameSubject.next(payload?.sub ?? null);
+    this.isLoggedInSubject.next(!!payload);
+  }
+
+  private getValidPayload(): JwtPayload | null {
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    if (!token) return null;
+
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      const nowInSeconds = Math.floor(Date.now() / 1000);
+
+      if (!decoded.exp || decoded.exp <= nowInSeconds) {
+        this.clearSession();
+        return null;
+      }
+
+      return decoded;
+    } catch {
+      this.clearSession();
+      return null;
+    }
+  }
+
+  private clearSession(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.ROLES_KEY);
   }
 }

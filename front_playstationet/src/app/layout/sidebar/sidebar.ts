@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -20,17 +20,14 @@ import { AuthService } from '../../core/services/auth/auth.service';
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.scss'],
 })
-export class Sidebar implements OnInit {
+export class Sidebar {
   collapsed = false;
-  username = 'Usuario';
+  readonly username$;
+  readonly isLoggedIn$;
 
-  constructor(private readonly authService: AuthService) {}
-
-  ngOnInit(): void {
-    const tokenUser = this.authService.getCurrentUsername();
-    if (tokenUser) {
-      this.username = tokenUser;
-    }
+  constructor(private readonly authService: AuthService) {
+    this.username$ = this.authService.currentUsername$;
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
 
   toggleSidebar() {

@@ -1,65 +1,123 @@
 <section class="user-data-page">
-  <div class="page-head">
-    <h1>Datos del usuario</h1>
-    <p>Tu información principal de la cuenta PlayStationet.</p>
-  </div>
+  <div class="main-panel">
+    <header class="topbar">
+      <div>
+        <h1>Datos del usuario</h1>
+        <p>Perfil de cuenta PlayStationet</p>
+      </div>
 
-  @if (loading && !user) {
-    <p-card>
-      <p>Cargando datos...</p>
-    </p-card>
-  } @else if (user) {
-    <p-card>
-      @if (updating) {
-        <p class="updating">Actualizando datos...</p>
-      }
+      <label class="search-box">
+        <i class="pi pi-search"></i>
+        <input type="text" placeholder="Search" disabled />
+      </label>
+    </header>
 
-      <div class="profile-grid">
-        <div class="item">
-          <span class="label">Nombre visible</span>
-          <span class="value">{{ getDisplayName() }}</span>
-        </div>
+    @if (loading && !user) {
+      <p-card styleClass="profile-card loading-card">
+        <p>Cargando datos...</p>
+      </p-card>
+    } @else if (user) {
+      <div class="dashboard-grid">
+        @if (updating) {
+          <p class="updating">Actualizando datos...</p>
+        }
 
-        <div class="item">
-          <span class="label">Usuario</span>
-          <span class="value">{{ user.username }}</span>
-        </div>
+        <section class="hero-card">
+          <div class="hero-left">
+            <p class="hero-greet">Good evening, {{ user.username }}</p>
+            <div class="hero-tags">
+              <span class="chip active">Popular</span>
+              <span class="chip">Cuenta</span>
+              <span class="chip">Perfil</span>
+            </div>
+            <h2>{{ getDisplayName() }}</h2>
+            <p class="hero-sub">Tu centro de control de cuenta PlayStationet.</p>
 
-        <div class="item">
-          <span class="label">Email</span>
-          <span class="value">{{ user.email || 'No disponible' }}</span>
-        </div>
+            <div class="profile-grid">
+              <div class="item">
+                <span class="label">Usuario</span>
+                <span class="value">{{ user.username }}</span>
+              </div>
 
-        <div class="item">
-          <span class="label">ID</span>
-          <span class="value">{{ user.id || 'No disponible' }}</span>
-        </div>
-
-        <div class="item full">
-          <span class="label">Roles</span>
-          <div class="roles">
-            @if (user.roles?.length) {
-              @for (role of user.roles; track role) {
-                <p-tag [value]="role"></p-tag>
-              }
-            } @else {
-              <span class="value">Sin roles disponibles</span>
-            }
+              <div class="item">
+                <span class="label">Email</span>
+                <span class="value">{{ user.email || 'No disponible' }}</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      @if (errorMessage) {
-        <p class="warn">{{ errorMessage }}</p>
-      }
+          <div class="hero-right">
+            <article class="queue-item">
+              <strong>Cuenta</strong>
+              <span>Datos personales</span>
+            </article>
+            <article class="queue-item">
+              <strong>Seguridad</strong>
+              <span>Sesion y acceso</span>
+            </article>
+            <article class="queue-item">
+              <strong>Preferencias</strong>
+              <span>Idioma y notificaciones</span>
+            </article>
+          </div>
+        </section>
 
-      <div class="actions">
-        <button pButton type="button" label="Recargar" icon="pi pi-refresh" (click)="loadUserData()"></button>
+        <section class="middle-grid">
+          <article class="mini-card games-card">
+            <div class="section-head">
+              <h3>New Games</h3>
+              <a>See More</a>
+            </div>
+            <div class="games-row">
+              <div class="game-tile">
+                <p>Uncharted 4</p>
+              </div>
+              <div class="game-tile">
+                <p>Dishonored</p>
+              </div>
+              <div class="game-tile faded">
+                <p>Elden Ring</p>
+              </div>
+            </div>
+          </article>
+          <article class="mini-card stat-card">
+            <p class="mini-title">Your Statistic</p>
+            <div class="stat-ring">
+              <span>12,340h</span>
+            </div>
+            <div class="stat-row">
+              <div><strong>2,340</strong><span>Sesiones</span></div>
+              <div><strong>5,420</strong><span>Logros</span></div>
+              <div><strong>4,580</strong><span>Puntos</span></div>
+            </div>
+          </article>
+        </section>
+
+        <article class="mini-card downloads-card">
+          <div class="section-head">
+            <h3>Last Downloads</h3>
+            <a>See More</a>
+          </div>
+          <div class="download-pill">
+            <div>
+              <strong>FIFA 23</strong>
+              <span>1 hour 23 min</span>
+            </div>
+            <small>265MB of 1.23GB</small>
+          </div>
+          <div class="actions">
+            <button pButton type="button" label="Recargar" icon="pi pi-refresh" (click)="loadUserData()"></button>
+          </div>
+        </article>
+
+        @if (errorMessage) {
+          <p class="warn">{{ errorMessage }}</p>
+        }
       </div>
-    </p-card>
-  } @else {
-    <p-card>
-      <p class="warn">{{ errorMessage || 'No hay datos para mostrar.' }}</p>
-    </p-card>
-  }
+    } @else {
+      <p-card styleClass="profile-card">
+        <p class="warn">{{ errorMessage || 'No hay datos para mostrar.' }}</p>
+      </p-card>
+    }
+  </div>
 </section>
