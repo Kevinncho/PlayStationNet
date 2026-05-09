@@ -71,6 +71,9 @@ public class UserService {
                     .email(user.getEmail())
                     .firstName(user.getName())
                     .lastName(user.getLastName())
+                    .dateOfBirth(user.getDateOfBirth())
+                    .createdAt(user.getCreatedAt())
+                    .isAdmin(Boolean.TRUE.equals(user.getIsAdmin()))
                     .roles(
                         user.getRoles()
                             .stream()
@@ -82,17 +85,19 @@ public class UserService {
             .collect(Collectors.toList());
 }
 private UserResponse mapToResponse(User user) {
-    // Usa directamente user.getRoles(), porque con fetch=EAGER ya trae los roles actualizados
     return UserResponse.builder()
             .id(user.getIdUser())
             .username(user.getUsername())
             .email(user.getEmail())
             .firstName(user.getName())
             .lastName(user.getLastName())
+            .dateOfBirth(user.getDateOfBirth())
+            .createdAt(user.getCreatedAt())
+            .isAdmin(Boolean.TRUE.equals(user.getIsAdmin()))
             .roles(
                 user.getRoles()
                         .stream()
-                        .map(Role::getRoleName) // método más limpio con method reference
+                        .map(Role::getRoleName)
                         .collect(Collectors.toSet())
             )
             .build();

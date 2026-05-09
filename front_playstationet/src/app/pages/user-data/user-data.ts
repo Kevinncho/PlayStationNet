@@ -77,4 +77,14 @@ export class UserData implements OnInit {
     const fullName = `${this.user.firstName ?? ''} ${this.user.lastName ?? ''}`.trim();
     return fullName || this.user.username;
   }
+
+  getInitials(): string {
+    if (!this.user) return 'U';
+
+    const first = this.user.firstName?.trim().charAt(0) ?? '';
+    const last = this.user.lastName?.trim().charAt(0) ?? '';
+    const initials = `${first}${last}`.trim();
+
+    return (initials || this.user.username.charAt(0) || 'U').toUpperCase();
+  }
 }

@@ -21,6 +21,8 @@ export interface UserProfile {
   email?: string;
   firstName?: string;
   lastName?: string;
+  dateOfBirth?: string;
+  createdAt?: string;
   isAdmin?: boolean;
   roles?: string[];
 }

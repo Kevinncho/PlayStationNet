@@ -1,9 +1,8 @@
 package com.kefessan.playstationet.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import com.kefessan.playstationet.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +22,8 @@ public class UserResponse {
     private String email;
     private String firstName;
     private String lastName;
+    private LocalDate dateOfBirth;
+    private LocalDateTime createdAt;
     private boolean isAdmin;
     private Set<String> roles;
-
 }

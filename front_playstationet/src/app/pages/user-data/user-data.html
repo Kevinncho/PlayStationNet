@@ -26,12 +26,14 @@
           <div class="hero-left">
             <p class="hero-greet">Good evening, {{ user.username }}</p>
             <div class="hero-tags">
-              <span class="chip active">Popular</span>
+              <span class="chip active">Perfil</span>
+              <span class="chip">Base de datos</span>
               <span class="chip">Cuenta</span>
-              <span class="chip">Perfil</span>
             </div>
             <h2>{{ getDisplayName() }}</h2>
-            <p class="hero-sub">Tu centro de control de cuenta PlayStationet.</p>
+            <p class="hero-sub">
+              {{ user.email || 'No hay correo disponible en tu perfil.' }}
+            </p>
 
             <div class="profile-grid">
               <div class="item">
@@ -48,16 +50,16 @@
 
           <div class="hero-right">
             <article class="queue-item">
-              <strong>Cuenta</strong>
-              <span>Datos personales</span>
+              <strong>Nombre</strong>
+              <span>{{ user.firstName || 'No disponible' }}</span>
             </article>
             <article class="queue-item">
-              <strong>Seguridad</strong>
-              <span>Sesion y acceso</span>
+              <strong>Apellido</strong>
+              <span>{{ user.lastName || 'No disponible' }}</span>
             </article>
             <article class="queue-item">
-              <strong>Preferencias</strong>
-              <span>Idioma y notificaciones</span>
+              <strong>Fecha de alta</strong>
+              <span>{{ user.createdAt ? (user.createdAt | date: 'mediumDate') : 'No disponible' }}</span>
             </article>
           </div>
         </section>
@@ -65,45 +67,48 @@
         <section class="middle-grid">
           <article class="mini-card games-card">
             <div class="section-head">
-              <h3>New Games</h3>
-              <a>See More</a>
+              <h3>Datos personales</h3>
+              <a>Real</a>
             </div>
             <div class="games-row">
               <div class="game-tile">
-                <p>Uncharted 4</p>
+                <span class="tile-label">Nombre</span>
+                <p>{{ user.firstName || 'No disponible' }}</p>
               </div>
               <div class="game-tile">
-                <p>Dishonored</p>
+                <span class="tile-label">Apellido</span>
+                <p>{{ user.lastName || 'No disponible' }}</p>
               </div>
-              <div class="game-tile faded">
-                <p>Elden Ring</p>
+              <div class="game-tile">
+                <span class="tile-label">Nacimiento</span>
+                <p>{{ user.dateOfBirth ? (user.dateOfBirth | date: 'mediumDate') : 'No disponible' }}</p>
               </div>
             </div>
           </article>
           <article class="mini-card stat-card">
-            <p class="mini-title">Your Statistic</p>
+            <p class="mini-title">Resumen de cuenta</p>
             <div class="stat-ring">
-              <span>12,340h</span>
+              <span>{{ getInitials() }}</span>
             </div>
             <div class="stat-row">
-              <div><strong>2,340</strong><span>Sesiones</span></div>
-              <div><strong>5,420</strong><span>Logros</span></div>
-              <div><strong>4,580</strong><span>Puntos</span></div>
+              <div><strong>{{ user.username }}</strong><span>Usuario</span></div>
+              <div><strong>{{ user.firstName || '-' }}</strong><span>Nombre</span></div>
+              <div><strong>{{ user.lastName || '-' }}</strong><span>Apellido</span></div>
             </div>
           </article>
         </section>
 
         <article class="mini-card downloads-card">
           <div class="section-head">
-            <h3>Last Downloads</h3>
-            <a>See More</a>
+            <h3>Cuenta del usuario</h3>
+            <a>Actual</a>
           </div>
           <div class="download-pill">
             <div>
-              <strong>FIFA 23</strong>
-              <span>1 hour 23 min</span>
+              <strong>{{ user.email || 'Sin correo configurado' }}</strong>
+              <span>{{ user.createdAt ? ('Creado el ' + (user.createdAt | date: 'longDate')) : 'Fecha de alta no disponible' }}</span>
             </div>
-            <small>265MB of 1.23GB</small>
+            <small>{{ user.dateOfBirth ? ('Nacimiento: ' + (user.dateOfBirth | date: 'mediumDate')) : 'Nacimiento: no disponible' }}</small>
           </div>
           <div class="actions">
             <button pButton type="button" label="Recargar" icon="pi pi-refresh" (click)="loadUserData()"></button>
